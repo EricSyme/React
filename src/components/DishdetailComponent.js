@@ -1,19 +1,11 @@
 /* IMPORTS*/
-import React, { Component } from 'react';
+import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
-class DishDetail extends Component{
 
-    constructor(props){
-        super(props);
-
-        this.state={
-
-        }
-    }
 /*Render dish using dish passed in as props from the Menu component*/
 
-    renderDish(dish){
+    function RenderDish({dish}){
         return(
             <div className="col-12 col-md-5 m-1">
                 <Card>
@@ -29,8 +21,8 @@ class DishDetail extends Component{
 
 /*Render comments using dish passed in as props from the Menu component*/
 /* map thru array of dishes using props and set comment and details to 'comments'*/
-    renderComments(dish){
-        const comments = dish.comments.map ((comments) => {
+    function RenderComments({comments}) {
+        var comments = comments.map ((comments) => {
             return (
                 <li style={{ listStyleType: "none"}} key={comments.id}>
                 {comments.comment}<br/><br/>--{comments.author} {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comments.date)))}<br/><br/>
@@ -38,7 +30,7 @@ class DishDetail extends Component{
             );
         });
 
-        if (dish.comments != null){
+        if (comments != null){
             return(
                 <div className = "col-12 col-md-5 m-1">
                     <h4>Comments</h4>
@@ -52,13 +44,14 @@ class DishDetail extends Component{
             );
     }
 
-    render(){
-        if (this.props.dish != null){
+    const DishDetail = (props) => {
+
+        if (props.dish != null){
             return (
-                <div class= "container">
+                <div className= "container">
                 <div className="row">
-                    {this.renderDish(this.props.dish)}
-                    {this.renderComments(this.props.dish)}
+                    <RenderDish dish = {props.dish} />
+                    <RenderComments comments = {props.dish.comments} />
                 </div>
                 </div>
             );
@@ -69,7 +62,6 @@ class DishDetail extends Component{
             );
         }
     }
-}
 
 
 export default DishDetail;
