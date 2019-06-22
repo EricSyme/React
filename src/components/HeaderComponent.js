@@ -66,7 +66,7 @@ class Header extends Component {
                                 </NavLink>
                             </NavItem>
                         </Nav>
-                        <Nav className="ml-auto" navbar>
+                        <Nav className="ml-auto" navbar> 
                             <NavItem>
                                 <Button outline onClick={this.toggleModal}>
                                     <span className="fa fa-sign-in fa-lg">
