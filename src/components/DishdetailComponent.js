@@ -1,11 +1,10 @@
-/* IMPORTS*/
 import React, { Component } from 'react';
-import { Card, CardImg, CardText, CardBody, Modal, ModalHeader, ModalBody, CardTitle, Row, Breadcrumb, BreadcrumbItem, Button, Label, Col, FormGroup } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, Modal, ModalHeader, ModalBody, CardTitle, Row, Breadcrumb, BreadcrumbItem, Button, Label, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 
 
-/*Render dish using dish passed in as props from the Menu component*/
+
 
 function RenderDish({dish}){
     return(
@@ -21,8 +20,6 @@ function RenderDish({dish}){
     );
 }
 
-/*Render comments using dish passed in as props from the Menu component*/
-/* map thru array of dishes using props and set comment and details to 'comments'*/
 function RenderComments({comments}) {
     var comments = comments.map ((comments) => {
         return (
@@ -81,42 +78,40 @@ export class CommentForm extends Component {
                 </Button>
 
                     <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-                        <ModalHeader toggle={this.toggleModal}> Submit Comment</ModalHeader>
+                        <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                         <ModalBody>
-                            
-                                <LocalForm onSubmit={(values) => this.handleSubmit(values)} >
-                                    <Row className="form-group">
-                                        
-                                        <Col className="col-12">
+                            <LocalForm onSubmit={(values) => this.handleSubmit(values)} >
+                                <Row className="form-group">
+                                    <Col className="col-12">
                                         <Label htmlFor="rating">Rating</Label>
-                                            <Control.select model=".rating" name="rating" className="form-control" >
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </Control.select>
-                                        </Col>
-                                    </Row>
+                                        <Control.select model=".rating" name="rating" className="form-control" >
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </Control.select>
+                                    </Col>
+                                </Row>
+                                <Row className="form-group">
+                                    <Col>
+                                    <Label htmlFor="fullname">Your Name</Label>
+                                        <Control.text model=".fullname" id="fullname" name="fullname" placeholder="Your Name" className="form-control" validators={{ required, minLength: minLength(3), maxLength: maxLength(15) }} 
+                                        />
+                                        <Errors className="text-danger" model=".fullname" show="touched" messages={{ required: 'Required', minLength: 'Must be greater than 3 characters', maxLength: 'Must be 15 charaters or less' }} />
+                                    </Col>
+                                </Row>
+                                <Row className="form-group">
+                                    <Col>
+                                        <Label htmlFor="comment">Comment</Label>
+                                        <Control.textarea model=".comment" id="comment" name="comment" rows="6" className="form-control" validators={{ required }} 
+                                        />
+                                        <Errors className="text-danger" model=".comment" show="touched" messages={{ required: 'Required' }} />
+                                    </Col>
+                                </Row>
 
-                                    <Row className="form-group">
-                                        
-                                        <Col>
-                                        <Label htmlFor="fullname"> Full Name</Label>
-                                            <Control.text model=".fullname" id="fullname" name="fullname" placeholder="Full Name" className="form-control" validators={{ required, minLength: minLength(3), maxLength: maxLength(15) }} />
-                                            <Errors className="text-danger" model=".fullname" show="touched" messages={{ required: 'Required', minLength: 'Must be greater than 3 characters', maxLength: 'Must be 15 charaters or less' }} />
-                                        </Col>
-                                    </Row>
-
-                                    <Row className="form-group">
-                                        <Col>
-                                            <Control.textarea model=".comment" id="comment" name="comment" rows="6" className="form-control" validators={{ required }} />
-                                            <Errors className="text-danger" model=".comment" show="touched" messages={{ required: 'Required' }} />
-                                        </Col>
-                                    </Row>
-
-                                    <Button type="submit" value="submit" color="primary">Submit</Button>
-                                </LocalForm>
+                                <Button type="submit" value="submit" color="primary">Submit</Button>
+                            </LocalForm>
                         </ModalBody>
                     </Modal>
             </div>
