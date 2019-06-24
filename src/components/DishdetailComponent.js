@@ -20,7 +20,7 @@ function RenderDish({dish}){
     );
 }
 
-function RenderComments({comments}) {
+function RenderComments({comments, addComment, dishId}) {
     var comments = comments.map ((comments) => {
         return (
             <li style={{ listStyleType: "none"}} key={comments.id}>
@@ -34,7 +34,7 @@ function RenderComments({comments}) {
             <div className = "col-12 col-md-5 m-1">
                 <h4>Comments</h4>
                 {comments}
-                <CommentForm  />
+                <CommentForm  dishId={dishId} addComment={addComment} />
             </div>
         );
     }
@@ -66,8 +66,8 @@ export class CommentForm extends Component {
     }
 
     handleSubmit(values) {
-        console.log("Current State is: " + JSON.stringify(values));
-        alert("Current State is: " + JSON.stringify(values));
+        this.toggleModal();
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render() {
@@ -95,8 +95,8 @@ export class CommentForm extends Component {
                                 </Row>
                                 <Row className="form-group">
                                     <Col>
-                                    <Label htmlFor="fullname">Your Name</Label>
-                                        <Control.text model=".fullname" id="fullname" name="fullname" placeholder="Your Name" className="form-control" validators={{ required, minLength: minLength(3), maxLength: maxLength(15) }} 
+                                    <Label htmlFor="author">Your Name</Label>
+                                        <Control.text model=".author" id="author" name="author" placeholder="Your Name" className="form-control" validators={{ required, minLength: minLength(3), maxLength: maxLength(15) }} 
                                         />
                                         <Errors className="text-danger" model=".fullname" show="touched" messages={{ required: 'Required', minLength: 'Must be greater than 3 characters', maxLength: 'Must be 15 charaters or less' }} />
                                     </Col>
@@ -136,7 +136,10 @@ const DishDetail = (props) => {
                 </div>
                 <div className="row">
                     <RenderDish dish={props.dish} />
-                    <RenderComments comments={props.comments} postComment={props.postComment} dishId={props.dish.id} />
+                    <RenderComments comments={props.comments} 
+                        addComment={props.addComment}
+                        dishId={props.dish.id}
+                    />
                     
                 </div>
             </div>
