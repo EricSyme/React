@@ -1,6 +1,6 @@
-export const InitialFeedback = {
+export const Feedback = {
     firstname: '',
-    lastnmae: '',
+    lastname: '',
     telnum: '',
     email: '',
     agree: false,
