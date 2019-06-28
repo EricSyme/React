@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Button, Label, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, Form, Errors } from 'react-redux-form';
+import { Control, LocalForm, Errors } from 'react-redux-form';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -68,7 +68,7 @@ class Contact extends Component {
                         <h3>Send us your Feedback</h3>
                     </div>
                     <div className="col-12 col-md-9">
-                        <Form model ="feedback" onSubmit={(values) => this.handleSubmit(values)}>
+                        <LocalForm model ="feedback" onSubmit={(values) => this.handleSubmit(values)}>
                         <Row className="form-group">
                                 <Label htmlFor="firstname" md={2}>First Name</Label>
                                 <Col md={10}>
@@ -84,9 +84,9 @@ class Contact extends Component {
                                         model=".firstname"
                                         show="touched"
                                         messages={{
-                                            required: 'Required',
-                                            minLength: 'Must be greater than 2 characters',
-                                            maxLength: 'Must be 15 characters or less'
+                                            required: 'Required. ',
+                                            minLength: 'Must be greater than 2 characters.',
+                                            maxLength: 'Must be 15 characters or less.'
                                         }}
                                      />
                                 </Col>
@@ -106,9 +106,9 @@ class Contact extends Component {
                                         model=".lastname"
                                         show="touched"
                                         messages={{
-                                            required: 'Required',
-                                            minLength: 'Must be greater than 2 characters',
-                                            maxLength: 'Must be 15 characters or less'
+                                            required: 'Required. ',
+                                            minLength: 'Must be greater than 2 characters.',
+                                            maxLength: 'Must be 15 characters or less.'
                                         }}
                                      />
                                 </Col>
@@ -128,10 +128,10 @@ class Contact extends Component {
                                         model=".telnum"
                                         show="touched"
                                         messages={{
-                                            required: 'Required',
-                                            minLength: 'Must be greater than 2 numbers',
-                                            maxLength: 'Must be 15 numbers or less',
-                                            isNumber: 'Must be a number'
+                                            required: 'Required. ',
+                                            minLength: 'Must be greater than 2 numbers.',
+                                            maxLength: 'Must be 15 numbers or less.',
+                                            isNumber: 'Must be a number.'
                                         }}
                                      />
                                 </Col>
@@ -151,8 +151,8 @@ class Contact extends Component {
                                         model=".email"
                                         show="touched"
                                         messages={{
-                                            required: 'Required',
-                                            validEmail: 'Invalid Email Address'
+                                            required: 'Required. ',
+                                            validEmail: 'Invalid Email Address. '
                                         }}
                                      />
                                 </Col>
@@ -178,19 +178,19 @@ class Contact extends Component {
                             <Row className="form-group">
                                 <Label htmlFor="message" md={2}>Your Feedback</Label>
                                 <Col md={10}>
-                                    <Control.textarea model=".message" id="message" name="message"
+                                    <Control.textarea model=".message" show="touched" id="message" name="message"
                                         rows="12"
                                         className="form-control" />
                                 </Col>
                             </Row>
                             <Row className="form-group">
                                 <Col md={{ size: 10, offset: 2 }}>
-                                    <Button type="submit" color="primary">
+                                    <Button type="submit" value= "submit" color="primary">
                                         Send Feedback
                                     </Button>
                                 </Col>
                             </Row>
-                        </Form>
+                        </LocalForm>
                     </div>
                 </div>
             </div>

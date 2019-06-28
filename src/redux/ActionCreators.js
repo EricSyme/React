@@ -6,9 +6,9 @@ export const addComment = (comment) => ({
     payload: comment
 });
 
-export const postFeedback = (firstname, lastname, telnum, email, agree, contactType, message)  => () => {
+export const postFeedback = ( firstname, lastname, telnum, email, agree, contactType, message)  => () => {
   const newFeedback = {
-    firstname: firstname,
+    firstname: firstname ,
     lastname: lastname,
     telnum: telnum,
     email: email,
@@ -28,8 +28,7 @@ export const postFeedback = (firstname, lastname, telnum, email, agree, contactT
   })
   .then(response => {
     if (response.ok) {
-      alert('Thank you for your feedback!\n\n Current State is: ' + JSON.stringify(newFeedback));
-
+      alert('Thank you for your feedback! ' + JSON.stringify(newFeedback));
       return response;
     } else {
       var error = new Error('Error ' + response.status + ': ' + response.statusText);
