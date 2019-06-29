@@ -28,7 +28,6 @@ export const postFeedback = ( firstname, lastname, telnum, email, agree, contact
   })
   .then(response => {
     if (response.ok) {
-      alert('Thank you for your feedback! ' + JSON.stringify(newFeedback));
       return response;
     } else {
       var error = new Error('Error ' + response.status + ': ' + response.statusText);
@@ -40,6 +39,7 @@ export const postFeedback = ( firstname, lastname, telnum, email, agree, contact
         throw error;
   })
 .then(response => response.json())
+.then (response => { alert('Thank you for your feedback! ' + JSON.stringify(response));})
 .catch(error =>  { console.log('post feedback', error.message);
   alert('Your feedback could not be sent.\nError: '+error.message); });
 };
