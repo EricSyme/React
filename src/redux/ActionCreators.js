@@ -6,7 +6,12 @@ export const addComment = (comment) => ({
     payload: comment
 });
 
-export const postFeedback = ( firstname, lastname, telnum, email, agree, contactType, message)  => () => {
+export const addFeedback = (feedback) => ({
+  type: ActionTypes.ADD_COMMENT, 
+  payload: feedback
+});
+
+export const postFeedback = ( firstname, lastname, telnum, email, agree, contactType, message)  => ( dispatch ) => {
   const newFeedback = {
     firstname: firstname ,
     lastname: lastname,
@@ -39,6 +44,7 @@ export const postFeedback = ( firstname, lastname, telnum, email, agree, contact
         throw error;
   })
 .then(response => response.json())
+.then(response => dispatch(addFeedback(response)))
 .then (response => { alert('Thank you for your feedback! ' + JSON.stringify(response));})
 .catch(error =>  { console.log('post feedback', error.message);
   alert('Your feedback could not be sent.\nError: '+error.message); });
