@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody, Modal, ModalHeader, ModalBody, CardTitle, Row, Breadcrumb, BreadcrumbItem, Button, Label, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import { Loading } from './LoadingComponent';
-import { baseUrl } from '../shared/baseUrl';
 import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 
@@ -16,7 +14,7 @@ function RenderDish({dish}){
                     exitTransform: 'scal(0.5) translateY(-50%)'
                 }}>
                 <Card>
-                    <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name}></CardImg>
+                    <CardImg width="100%" src={dish.image} alt={dish.name}></CardImg>
                     <CardBody>
                         <CardTitle>{dish.name}</CardTitle>
                         <CardText>{dish.description}</CardText>
@@ -27,7 +25,7 @@ function RenderDish({dish}){
     );
 }
 
-function RenderComments({comments, postComment, dishId}) {
+function RenderComments({comments, addComment, dishId}) {
     if (comments != null){
         return(
             <div className = "col-12 col-md-5 m-1">
@@ -46,7 +44,7 @@ function RenderComments({comments, postComment, dishId}) {
                         })}
                     </Stagger>
                     </ul>
-                <CommentForm  dishId={dishId} postComment={postComment} />
+                <CommentForm  dishId={dishId} addComment={addComment} />
             </div>
         );
     }
@@ -79,7 +77,7 @@ export class CommentForm extends Component {
 
     handleSubmit(values) {
         this.toggleModal();
-        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render() {
@@ -132,25 +130,7 @@ export class CommentForm extends Component {
 }
 
 const DishDetail = (props) => {
-    if (props.isLoading) {
-        return(
-            <div className="container">
-                <div className="row">
-                    <Loading />
-                </div>
-            </div>
-        );
-    }
-    else if (props.errMess) {
-        return(
-            <div className="container">
-                <div className="row">
-                    <h4>{props.errMess}</h4>
-                </div>
-            </div>
-        );
-    }
-    else if (props.dish != null){
+    if (props.dish != null){
         return (
             <div className="container">
                 <div className="row">
@@ -166,7 +146,7 @@ const DishDetail = (props) => {
                 <div className="row">
                     <RenderDish dish={props.dish} />
                     <RenderComments comments={props.comments} 
-                        postComment={props.postComment}
+                        addComment={props.addComment}
                         dishId={props.dish.id}
                     />
                     
